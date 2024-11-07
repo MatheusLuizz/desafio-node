@@ -1,0 +1,45 @@
+# Diretórios e arquivos de dependências
+node_modules/
+package-lock.json
+
+# Variáveis de ambiente
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache de dependências e pacotes do npm/yarn
+.cache/
+.npm/
+.yarn/
+
+# Diretórios de build e compilação
+dist/
+build/
+
+# Configurações de IDEs e editores
+.vscode/
+.idea/
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de testes e cobertura de código
+coverage/
+.nyc_output/
+
+# Configurações de banco de dados
+*.sqlite3
+*.db
+
+# Docker
+docker-compose.override.yml
+
+# Outros arquivos desnecessários
+*.swp
+*.swo
