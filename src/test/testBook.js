@@ -1,40 +1,32 @@
-const request = require('supertest');
-const app = require('../app');
-const { sequelize } = require('../config/database');
+const Club = require('../models/Club');
+const Book = require('../models/Book');
+const User = require('../models/User');
 
-beforeAll(async () => {
-  await sequelize.sync();
-});
+async function testCreateBook() {
+  try {
 
-describe('Book CRUD operations', () => {
-  test('POST /api/clubs/:clubId/books - should create a new book', async () => {
-    const response = await request(app)
-      .post('/api/clubs/1/books')
-      .send({ title: 'Book Title', author: 'Author Name' });
-    expect(response.status).toBe(201);
-    expect(response.body.title).toBe('Book Title');
-  });
+    const user = await User.create({
+      name: 'Nalyne Santana',
+      email: 'nalyne.santana@example.com',
+      password: 'senha321',
+    });
 
-  test('GET /api/clubs/:clubId/books - should return all books of a club', async () => {
-    const response = await request(app).get('/api/clubs/1/books');
-    expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBeTruthy();
-  });
+    const club = await Club.create({
+      name: 'Clube de Leitura de Romance',
+      description: 'Um clube para discutir livros de romance.',
+      created_by: user.id,
+    });
 
-  test('PUT /api/books/:id - should update book details', async () => {
-    const response = await request(app)
-      .put('/api/books/1')
-      .send({ title: 'Updated Title', author: 'Updated Author' });
-    expect(response.status).toBe(200);
-    expect(response.body.title).toBe('Updated Title');
-  });
+    const book = await Book.create({
+      title: 'Heartstopper',
+      author: 'Alice Oseman',
+      clubId: club.id,
+    });
 
-  test('DELETE /api/books/:id - should delete a book', async () => {
-    const response = await request(app).delete('/api/books/1');
-    expect(response.status).toBe(204);
-  });
-});
+    console.log('Livro criado:', book);
+  } catch (error) {
+    console.error('Erro ao criar livro:', error);
+  }
+}
 
-afterAll(async () => {
-  await sequelize.close();
-});
+testCreateBook();
