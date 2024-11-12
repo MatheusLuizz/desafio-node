@@ -1,6 +1,7 @@
 // src/routes/bookRoutes.js
 const express = require('express');
 const bookController = require('../controllers/bookController');
+const cache = require('../middlewares/cache');
 const router = express.Router();
 
 // Rota para adicionar um livro a um clube específico
